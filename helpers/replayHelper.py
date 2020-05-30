@@ -1,13 +1,14 @@
 import os
 
 from common import generalUtils
+from common.log import logUtils as log
 from constants import exceptions, dataTypes
 from helpers import binaryHelper, generalHelper
 from objects import glob
 import datetime
 
 def buildFullReplay(scoreID=None, scoreData=None, rawReplay=None):
-    if all(v is None for v in (scoreID, scoreData)) or all(v is not None for v in (scoreID, scoreData)):
+    if scoreID == None and scoreData == None:
         raise AttributeError("Either scoreID or scoreData must be provided, not neither or both")
 
     if scoreData is None:
@@ -71,23 +72,25 @@ def buildFullReplay(scoreID=None, scoreData=None, rawReplay=None):
     return fullReplay
 
 def returnReplayFileName(scoreID=None, scoreData=None):
-    if all(v is None for v in (scoreID, scoreData)) or all(v is not None for v in (scoreID, scoreData)):
+    if scoreID == None and scoreData == None:
         raise AttributeError("Either scoreID or scoreData must be provided, not neither or both")
-
-    if scoreData is None:
+    if scoreID == None:
+        scoreID = scoreData['id']
+    if scoreData == None:
         scoreData = glob.db.fetch(
             "SELECT scores.*, users.username FROM scores LEFT JOIN users ON scores.userid = users.id "
             "WHERE scores.id = %s",
             [scoreID]
         )
-    else:
-        scoreID = scoreData["id"]
-    if scoreData is None or scoreID is None:
-        raise exceptions.scoreNotFoundError()
 
-    username = scoreData["username"]
-    beatmapName = glob.db.fetch("SELECT song_name FROM beatmaps WHERE beatmap_md5 = %s", [scoreData["beatmap_md5"]])
-    date = datetime.datetime.fromtimestamp(int(scoreData["time"])) - datetime.timedelta(microseconds = int(scoreData["time"])/10)
-    fileName = "{} - {} ({})".format(username, beatmapName["song_name"], date.strftime("%Y-%m-%d"))
+    try:
+        username = scoreData["username"]
+        beatmapData = glob.db.fetch("SELECT beatmap_id, song_name FROM beatmaps WHERE beatmap_md5 = %s", [scoreData["beatmap_md5"]])
+        date = datetime.datetime.fromtimestamp(int(scoreData["time"])) - datetime.timedelta(microseconds = int(scoreData["time"])/10)
+        fileName = "{} - {} [{}] ({})".format(username, beatmapData["song_name"], beatmapData['beatmap_id'], date.strftime("%Y-%m-%d"))
+    except Exception as err:
+        log.debug("ERROR WHEN: get replay fileName ({})".format(str(err)))
+        fileName = scoreID
+
 
     return fileName
