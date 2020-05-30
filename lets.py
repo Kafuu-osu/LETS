@@ -88,8 +88,8 @@ def make_app():
 		(r"/web/replays_auto/(.*)", getFullReplayHandlerAuto.handler),
 		(r"/web/errorlogs/(.*)", getFullErrorHandler.handler),
 
-		(r"/p/verify", redirectHandler.handler, dict(destination="https://ussr.pl/")),
-		(r"/u/(.*)", redirectHandler.handler, dict(destination="https://ussr.pl/u/{}")),
+		(r"/p/verify", redirectHandler.handler, dict(destination="https://kafuu.pro/")),
+		(r"/u/(.*)", redirectHandler.handler, dict(destination="https://kafuu.pro/u/{}")),
 
 		(r"/api/v1/status", apiStatusHandler.handler),
 		(r"/api/v1/pp", apiPPHandler.handler),

@@ -302,19 +302,18 @@ class handler(requestsManager.asyncRequestHandler):
 			glob.redis.delete(lock_key)
 			
 			# Client anti-cheat flags
-			if not restricted and glob.conf.extra["mode"]["anticheat"]:
+			if not restricted and glob.conf.extra["mode"]["anticheat"] and glob.conf.config["discord"]["enable"] == True:
 				haxFlags = scoreData[17].count(' ') # 4 is normal, 0 is irregular but inconsistent.
 				if haxFlags != 4 and haxFlags != 0 and s.passed:
 					hack = getHackByFlag(int(haxFlags))
 					if type(hack) == str:
 						# THOT DETECTED
-						if glob.conf.config["discord"]["enable"]:
-							webhook = Webhook(glob.conf.config["discord"]["ahook"],
-											  color=0xadd836,
-											  footer="I SPOT A THOT. [ Client AC ]")
-							webhook.set_title(title=f"Caught some cheater {username} ({userID})")
-							webhook.set_desc(f'This body caught with flag {haxFlags}\nIn enuming: {hack}')
-							webhook.post()
+						webhook = Webhook(glob.conf.config["discord"]["ahook"],
+											color=0xadd836,
+											footer="I SPOT A THOT. [ Client AC ]")
+						webhook.set_title(title=f"Caught some cheater {username} ({userID})")
+						webhook.set_desc(f'This body caught with flag {haxFlags}\nIn enuming: {hack}')
+						webhook.post()
 
 			'''
 			ignoreFlags = 4
@@ -611,7 +610,7 @@ class handler(requestsManager.asyncRequestHandler):
 
 				# Send message to #announce if we're rank #1
 				if newScoreboard.personalBestRank == 1 and s.completed == 3 and not restricted:
-					annmsg = "[{}] [{}/{}u/{} {}] achieved rank #1 on [https://ussr.pl/b/{} {}] ({})".format(
+					annmsg = "[{}] [{}/{}u/{} {}] achieved rank #1 on [https://kafuu.pro/b/{} {}] ({})".format(
 						DAGAyMode,
 						glob.conf.config["server"]["serverurl"],
 						ProfAppend,
@@ -628,7 +627,7 @@ class handler(requestsManager.asyncRequestHandler):
 					# Let's send them to Discord too, because we cool :sunglasses:
 					
 					#around wheer it dies
-					if glob.conf.config["discord"]["enable"]:
+					if glob.conf.config["discord"]["enable"] == True:
 						# First, let's check what mod does the play have
 						ScoreMods = ""
 						if s.mods == 0:
@@ -660,13 +659,13 @@ class handler(requestsManager.asyncRequestHandler):
 						url = glob.conf.config["discord"]["score"]
 
 						# Then post them!
-						webhook = Webhook(url, color=0xadd8e6, footer="This score is submitted on RealistikOsu!")
-						webhook.set_author(name=username.encode().decode("ASCII", "ignore"), icon='https://a.ussr.pl/{}'.format(userID))
+						webhook = Webhook(url, color=0xadd8e6, footer="This score is submitted on osu!KafuuOsu!")
+						webhook.set_author(name=username.encode().decode("ASCII", "ignore"), icon='https://a.kafuu.pro/{}'.format(userID))
 						webhook.set_title(title=f"New score by {username}!")
 						webhook.set_desc("[{}] Achieved #1 on mode **{}**, {} +{}!".format(DAGAyMode, gameModes.getGamemodeFull(s.gameMode), beatmapInfo.songName.encode().decode("ASCII", "ignore"), ScoreMods))
 						webhook.add_field(name='Total: {}pp'.format(float("{0:.2f}".format(s.pp))), value='Gained: +{}pp'.format(float("{0:.2f}".format(ppGained))))
 						webhook.add_field(name='Actual rank: {}'.format(rankInfo["currentRank"]), value='[Download Link](https://storage.ripple.moe/d/{})'.format(beatmapInfo.beatmapSetID))
-						webhook.add_field(name='Played by: {}'.format(username.encode().decode("ASCII", "ignore")), value="[Go to user's profile](https://ussr.pl/{}u/{})".format(ProfAppend, userID))
+						webhook.add_field(name='Played by: {}'.format(username.encode().decode("ASCII", "ignore")), value="[Go to user's profile](https://kafuu.pro/{}u/{})".format(ProfAppend, userID))
 						webhook.set_image('https://assets.ppy.sh/beatmaps/{}/covers/cover.jpg'.format(beatmapInfo.beatmapSetID))
 						webhook.post()
 

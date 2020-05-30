@@ -23,11 +23,11 @@ def printServerStartHeader(asciiArt):
 		printColored("| |__ | _|   | |  \\__ \\  ", DaColour)
 		printColored("|____||___|  |_|  |___/  \n", DaColour)
 
-	printColored("> Welcome to the Latest Essential Tatoe Server (RealistikOsu! ver)", bcolors.GREEN)
+	printColored("> Welcome to the Latest Essential Tatoe Server (osu!KafuuOsu! ver)", bcolors.GREEN)
 	printColored("> Common submodule v{}".format(glob.COMMON_VERSION), bcolors.GREEN)
-	printColored("> Forked by RealistikOsu!", bcolors.GREEN)
+	printColored("> Forked by osu!KafuuOsu!", bcolors.GREEN)
 	printColored("> Made by the Ripple team", bcolors.GREEN)
-	printColored("> {}https://github.com/RealistikOsu/lets".format(bcolors.UNDERLINE), bcolors.GREEN)
+	printColored("> {}https://github.com/osu!KafuuOsu/lets".format(bcolors.UNDERLINE), bcolors.GREEN)
 	printColored("> Press CTRL+C to exit\n", bcolors.GREEN)
 
 

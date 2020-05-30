@@ -1,5 +1,5 @@
 ## LETS
-This is what RealistikOsu! uses for the replay + score server
+This is what osu!KafuuOsu! uses for the replay + score server
 
 - Origin: https://zxq.co/ripple/lets
 - Mirror: https://github.com/osuripple/lets
