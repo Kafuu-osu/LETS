@@ -49,7 +49,7 @@ class handler(requestsManager.asyncRequestHandler):
 					page * 100, 
 					2 if (query == "newest") else 1 if (query == "most played") else 4 if (query == "top rated") else 4,
 					15 if gameMode == None else gameMode + 1, 
-					31 if rankedStatus == None else { 4:31, 0:1, 7:1, 8:4, 3:2, 2:8, 5:16}[rankedStatus]
+					31 if rankedStatus == None else { 4:31, 0:1, 7:1, 8:4, 3:2, 2:8, 5:16}.get(rankedStatus, 31)
 				)
 				log.info("[sayobot] address {}".format(address))
 				response = requests.get(address)
@@ -72,7 +72,7 @@ class handler(requestsManager.asyncRequestHandler):
 							"ParentSetID": mapSet["sid"],
 							"DiffName": "[From Sayobot.cn mirror] {} Mode, Unknown Diffname, Unknown Info! But you can download it.".format('Unknown') if gameMode == None else ('std', 'taiko', 'ctb', 'mania')[gameMode],
 							"FileMD5": "",
-							"Mode": {1:0, 2:1, 4:2, 8:3}[mapSet["modes"]],
+							"Mode": {1:0, 2:1, 4:2, 8:3}.get(mapSet.get("modes", 1), 0),
 							"BPM": 0,
 							"AR": 0,
 							"OD": 0,
@@ -124,3 +124,4 @@ class handler(requestsManager.asyncRequestHandler):
 			output = "0\n"
 		finally:
 			self.write(output)
+
