@@ -314,7 +314,7 @@ if __name__ == "__main__":
 		log.logMessage("Server started!", discord="bunker", stdout=False)
 
 		# Start Tornado
-		glob.application.listen(serverPort, address=glob.conf.config["server"]["host"])
+		glob.application.listen(serverPort, address=glob.conf.config["server"]["host"], xheaders=True)
 		tornado.ioloop.IOLoop.instance().start()
 	finally:
 		# Perform some clean up
