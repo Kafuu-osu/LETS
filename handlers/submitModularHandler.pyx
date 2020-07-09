@@ -674,10 +674,12 @@ class handler(requestsManager.asyncRequestHandler):
 					modularData = {
 						'userID': userID,
 						'username': username,
+						'ip': ip,
 						'mode': DAGAyMode,
 						'gameMode': gameModes.getGamemodeFull(s.gameMode),
+						'passed': True,
 						'score': getSlotsData(s),
-						'achievements': new_achievements if s.passed else [],
+						'achievements': new_achievements,
 						'rankInfo': rankInfo,
 						'changes': {
 							'pp': {
@@ -702,13 +704,29 @@ class handler(requestsManager.asyncRequestHandler):
 						},
 						'beatmap': getSlotsData(beatmapInfo)
 					}
-
+					print(modularData)
 					# Send data
 					glob.sio.send('clientSubmitModular', modularData)
 
 				# Write message to client
 				self.write(output)
 			else:
+				if glob.sio:
+					# Make modular data to send
+					modularData = {
+						'userID': userID,
+						'username': username,
+						'ip': ip,
+						'mode': DAGAyMode,
+						'gameMode': gameModes.getGamemodeFull(s.gameMode),
+						'passed': False,
+						'score': getSlotsData(s),
+						'beatmap': getSlotsData(beatmapInfo)
+					}
+					print(modularData)
+					# Send data
+					glob.sio.send('clientSubmitModular', modularData)
+
 				# No ranking panel, send just "ok"
 				self.write("ok")
 			
@@ -762,4 +780,4 @@ class handler(requestsManager.asyncRequestHandler):
 
 
 def getSlotsData(obj: object, dataTypes = (tuple, list, dict, str, int, float, bool, set, bytes)):
-	return { k: getattr(obj, k) for k in obj.__slots__ if type(getattr(obj, k)) in dataTypes }
+	return { k: getattr(obj, k) for k in obj.__slots__ } # if type(getattr(obj, k)) in dataTypes
