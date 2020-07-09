@@ -22,6 +22,7 @@ from common.ddog import datadogClient
 from common.log import logUtils as log
 from common.redis import pubSub
 from common.web import schiavo
+from common import socketioService
 from handlers import apiCacheBeatmapHandler, rateHandler, changelogHandler
 from handlers import apiPPHandler
 from handlers import apiStatusHandler
@@ -281,6 +282,21 @@ if __name__ == "__main__":
 			serverPort = int(glob.conf.config["server"]["port"])
 		except:
 			consoleHelper.printColored("[!] Invalid server port! Please check your config.ini and run the server again", bcolors.RED)
+		
+		# Connect to socketio
+		SIO_enabled = glob.conf.extra["socketio"]["enabled"]
+		SIO_server = glob.conf.extra["socketio"]["server"]
+		consoleHelper.printColored("[!] Socketio service is {}! ({})".format("ENABLED" if SIO_enabled == True else "DISABLED", SIO_server), bcolors.GREEN)
+		if SIO_enabled:
+			try:
+				consoleHelper.printNoNl("> Connecting to socketio server... \n")
+				glob.sio = socketioService.Client(SIO_server)
+				consoleHelper.printNoNl(" ")
+				consoleHelper.printDone()
+			except Exception as err:
+				# Exception while connecting to socketio
+				consoleHelper.printError()
+				consoleHelper.printColored("[!] Error while connection to socketio server.", bcolors.RED)
 
 		# Make app
 		glob.application = make_app()

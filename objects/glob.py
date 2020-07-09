@@ -21,10 +21,12 @@ redis = None
 conf = None
 application = None
 pool = None
+sio = None
 pascoa = {}
 
 debug = False
 sentry = False
+
 
 # Cache and objects
 fLocks = fileLocks.fileLocks()

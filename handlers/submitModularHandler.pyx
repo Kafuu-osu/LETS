@@ -619,7 +619,7 @@ class handler(requestsManager.asyncRequestHandler):
 						beatmapInfo.beatmapID,
 						beatmapInfo.songName.encode().decode("ASCII", "ignore"),
 						gameModes.getGamemodeFull(s.gameMode)
-						)
+					)
 								
 					params = urlencode({"k": glob.conf.config["server"]["apikey"], "to": "#announce", "msg": annmsg})
 					requests.get("{}/api/v1/fokabotMessage?{}".format(glob.conf.config["server"]["banchourl"], params))
@@ -668,6 +668,43 @@ class handler(requestsManager.asyncRequestHandler):
 						webhook.add_field(name='Played by: {}'.format(username.encode().decode("ASCII", "ignore")), value="[Go to user's profile](https://kafuu.pro/{}u/{})".format(ProfAppend, userID))
 						webhook.set_image('https://assets.ppy.sh/beatmaps/{}/covers/cover.jpg'.format(beatmapInfo.beatmapSetID))
 						webhook.post()
+
+				if glob.sio:
+					# Make modular data to send
+					modularData = {
+						'userID': userID,
+						'username': username,
+						'mode': DAGAyMode,
+						'gameMode': gameModes.getGamemodeFull(s.gameMode),
+						'score': getSlotsData(s),
+						'achievements': new_achievements if s.passed else [],
+						'rankInfo': rankInfo,
+						'changes': {
+							'pp': {
+								'change': ppGained,
+								'old': oldUserStats["pp"],
+								'new': newUserStats["pp"]
+							},
+							'rank': {
+								'change': gainedRanks,
+								'old': oldRank,
+								'new': rankInfo["currentRank"]
+							},
+							'accuracy': {
+								'change': (newUserStats["accuracy"] - oldUserStats["accuracy"]) / 100,
+								'old': oldUserStats["accuracy"] / 100,
+								'new': newUserStats["accuracy"] / 100
+							},
+							'userStats': {
+								'old': oldUserStats,
+								'new': newUserStats
+							}
+						},
+						'beatmap': getSlotsData(beatmapInfo)
+					}
+
+					# Send data
+					glob.sio.send('clientSubmitModular', modularData)
 
 				# Write message to client
 				self.write(output)
@@ -722,3 +759,7 @@ class handler(requestsManager.asyncRequestHandler):
 			# because the client will send the score again after some time.
 			if keepSending:
 				self.set_status(408)
+
+
+def getSlotsData(obj: object, dataTypes = (tuple, list, dict, str, int, float, bool, set, bytes)):
+	return { k: getattr(obj, k) for k in obj.__slots__ if type(getattr(obj, k)) in dataTypes }
