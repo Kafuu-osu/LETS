@@ -9,4 +9,5 @@ common_refractor
 *.c
 *.so
 *.log
+*.pyd
 nohup.out
