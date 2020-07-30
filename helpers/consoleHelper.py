@@ -4,6 +4,10 @@ from common.constants import bcolors
 from objects import glob
 import random
 
+# fix: windows cmd cannot display colors
+from colorama import init
+init(autoreset=True)
+
 
 def printServerStartHeader(asciiArt):
 	"""
