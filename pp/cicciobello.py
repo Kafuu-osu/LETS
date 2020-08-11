@@ -14,7 +14,7 @@ class Cicciobello:
         self.beatmap = _beatmap
 
         # If passed, set everything from score object
-        if _score is not None:
+        if _score != None:
             self.score = _score
             self.accuracy = self.score.accuracy
             self.mods = self.score.mods
@@ -62,17 +62,17 @@ class Cicciobello:
                 for acc in [1, 0.99, 0.98, 0.95]:
                     results.append(ppCalc.calculate_pp(
                         diff=difficulty,
-						accuracy=acc,
-						combo=self.combo if self.combo >= 0 else calcBeatmap.max_combo,
-						miss=self.misses
+                        accuracy=acc,
+                        combo=self.combo if self.combo >= 0 else calcBeatmap.max_combo,
+                        miss=self.misses
                     ))
                 self.pp = results
             else:
                 self.pp = ppCalc.calculate_pp(
                     diff=difficulty,
-					accuracy=self.accuracy,
-					combo=self.combo if self.combo >= 0 else calcBeatmap.max_combo,
-					miss=self.misses
+                    accuracy=self.accuracy,
+                    combo=self.combo if self.combo >= 0 else calcBeatmap.max_combo,
+                    miss=self.misses
                 )
         except exceptions.osuApiFailException:
             log.error("cicciobello ~> osu!api error!")

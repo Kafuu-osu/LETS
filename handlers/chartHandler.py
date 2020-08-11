@@ -15,19 +15,19 @@ from common.sentry import sentry
 
 MODULE_NAME = "chart_handler"
 class handler(requestsManager.asyncRequestHandler):
-	"""
-	Handler for /web/osu-getcharts.php
-	"""
+    """
+    Handler for /web/osu-getcharts.php
+    """
     @tornado.web.asynchronous
-	@tornado.gen.engine
-	@sentry.captureTornado
-	def asyncGet(self):
+    @tornado.gen.engine
+    @sentry.captureTornado
+    def asyncGet(self):
         try:
         # Argument check
-			if not requestsManager.checkArguments(self.request.arguments, ["u", "h"]):
-				raise exceptions.invalidArgumentsException(MODULE_NAME)
+            if not requestsManager.checkArguments(self.request.arguments, ["u", "h"]):
+                raise exceptions.invalidArgumentsException(MODULE_NAME)
             username = self.get_argument("u")
-			password = self.get_argument("h")
+            password = self.get_argument("h")
 
             localUserId = glob.db.fetch("SELECT * FROM users WHERE username = %s", username)
             if localUserId < 0:
@@ -38,4 +38,4 @@ class handler(requestsManager.asyncRequestHandler):
                 charts['beatmaps'] = glob.db.fetchAll("SELECT * FROM scores INNER JOIN beatmaps ON score.beatmap_md5 = beatmaps.beatmap_md5 WHERE chart_id = %s ORDER BY pp DESC")
             return json.dumps(charts)
         except exceptions.invalidArgumentsException:
-			pass
+            pass

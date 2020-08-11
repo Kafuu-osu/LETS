@@ -50,7 +50,7 @@ class Chart:
         :return: { XXXBefore -> first element, XXXAfter -> second element }, where XXX is `name`
         """
         return {
-            f"{name}{'Before' if i == 0 else 'After'}": x if x is not None else none_value for i, x in enumerate(values)
+            f"{name}{'Before' if i == 0 else 'After'}": x if x != None else none_value for i, x in enumerate(values)
         }
 
 
@@ -68,11 +68,11 @@ class BeatmapChart(Chart):
         """
         serverurl = glob.conf.config["server"]["serverurl"]
         super(BeatmapChart, self).__init__("beatmap", f"{serverurl}/b/{beatmap_id}", "Beatmap Ranking")
-        self.rank = (old_score.rank if old_score is not None else None, new_score.rank)
-        self.max_combo = (old_score.maxCombo if old_score is not None else None, new_score.maxCombo)
-        self.accuracy = (old_score.accuracy * 100 if old_score is not None else None, new_score.accuracy * 100)
-        self.ranked_score = (old_score.score if old_score is not None else None, new_score.score)
-        self.pp = (old_score.pp if old_score is not None else None, new_score.pp)
+        self.rank = (old_score.rank if old_score != None else None, new_score.rank)
+        self.max_combo = (old_score.maxCombo if old_score != None else None, new_score.maxCombo)
+        self.accuracy = (old_score.accuracy * 100 if old_score != None else None, new_score.accuracy * 100)
+        self.ranked_score = (old_score.score if old_score != None else None, new_score.score)
+        self.pp = (old_score.pp if old_score != None else None, new_score.pp)
         self.score_id = new_score.scoreID
 
     @property

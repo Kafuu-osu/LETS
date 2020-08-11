@@ -11,7 +11,7 @@ from common import generalUtils
 
 MODULE_NAME = "clienterror"
 class handler(requestsManager.asyncRequestHandler):
-	@tornado.web.asynchronous
-	@tornado.gen.engine
-	def asyncPost(self): # Nothing here is useful for anyone -.-
-		self.write("")
+    @tornado.web.asynchronous
+    @tornado.gen.engine
+    def asyncPost(self): # Nothing here is useful for anyone -.-
+        self.write("")

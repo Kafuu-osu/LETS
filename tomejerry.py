@@ -54,10 +54,10 @@ class LwScore:
         :param pp: pp. Optional.
         :param score_: score object. Optional.
         """
-        if score_ is not None:
+        if score_ != None:
             self.score_id = score_.scoreID
             self.pp = score_.pp
-        elif score_id is not None and pp is not None:
+        elif score_id != None and pp != None:
             self.score_id = score_id
             self.pp = pp
         else:
@@ -306,7 +306,7 @@ class Worker:
                     # Recalculate pp
                     recalculated_score = self.recalc_score(score_)
 
-                    if recalculated_score is not None:
+                    if recalculated_score != None:
                         # New score returned, store new pp in memory
                         self.scores[i].pp = recalculated_score.pp
                         if recalculated_score.pp == 0:
@@ -322,9 +322,9 @@ class Worker:
                     self.recalculated_scores_count += 1
         finally:
             # Close cursor and connection
-            if cursor is not None:
+            if cursor != None:
                 cursor.close()
-            if db_worker is not None:
+            if db_worker != None:
                 glob.db.pool.putWorker(db_worker)
             self.logger.debug("PP Recalculated")
 
@@ -433,7 +433,7 @@ def mass_recalc(recalculator: Recalculator, workers_number: int=MAX_WORKERS, chu
         workers.append(
             Worker(
                 chunk_size=chunk_size
-                if chunk_size is not None
+                if chunk_size != None
                 else len(Worker.score_ids_pool.scores) // workers_number // 3,
                 worker_id=i,
                 start=True
@@ -568,12 +568,12 @@ def main():
 
     # Get workers from arguments if set
     workers_number = MAX_WORKERS // 2
-    if args.workers is not None:
+    if args.workers != None:
         workers_number = int(args.workers)
 
     # Get chunk size from arguments if set
     chunk_size = None
-    if args.chunksize is not None:
+    if args.chunksize != None:
         chunk_size = int(args.chunksize)
 
     # Disable MySQL db warnings (it spams 'Unsafe statement written to the binary log using statement...'
@@ -606,13 +606,13 @@ def main():
     }
     recalculator = None
     for k, v in vars(args).items():
-        if v is not None and ((type(v) is bool and v) or type(v) is not bool):
+        if v != None and ((type(v) is bool and v) or type(v) != bool):
             if k in recalculators_gen:
                 recalculator = recalculators_gen[k]()
                 break
 
     # Execute mass recalc
-    if recalculator is not None:
+    if recalculator != None:
         mass_recalc(recalculator, workers_number, chunk_size)
     else:
         logging.warning("No recalc option specified")

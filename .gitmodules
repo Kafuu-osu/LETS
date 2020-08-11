@@ -1,22 +1,22 @@
 [submodule "common"]
-	path = common
-	url = https://github.com/kafuu-osu/common.git
+    path = common
+    url = https://github.com/kafuu-osu/common.git
 [submodule "secret"]
-	path = secret
-	url = https://github.com/kafuu-osu/secret.git
+    path = secret
+    url = https://github.com/kafuu-osu/secret.git
 [submodule "pp/oppai-ng"]
-	path = pp/oppai-ng
-	url = https://github.com/kafuu-osu/oppai-ng.git
+    path = pp/oppai-ng
+    url = https://github.com/kafuu-osu/oppai-ng.git
 [submodule "pp/oppai-rx"]
-	path = pp/oppai-rx
-	url = https://github.com/kafuu-osu/oppai-ng.git
+    path = pp/oppai-rx
+    url = https://github.com/kafuu-osu/oppai-ng.git
 [submodule "pp/catch_the_pp"]
-	path = pp/catch_the_pp
-	url = https://github.com/kafuu-osu/catch-the-pp.git
-	branch = cython
+    path = pp/catch_the_pp
+    url = https://github.com/kafuu-osu/catch-the-pp.git
+    branch = cython
 [submodule "pp/oppai-ap"]
-	path = pp/oppai-ap
-	url = https://github.com/kafuu-osu/oppai-ap.git
+    path = pp/oppai-ap
+    url = https://github.com/kafuu-osu/oppai-ap.git
 [submodule "pp/oppai-v2"]
-	path = pp/oppai-v2
-	url = https://github.com/kafuu-osu/oppai-v2.git
+    path = pp/oppai-v2
+    url = https://github.com/kafuu-osu/oppai-v2.git

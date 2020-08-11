@@ -8,10 +8,10 @@ from objects import glob
 
 
 def isBeatmap(fileName=None, content=None):
-    if fileName is not None:
+    if fileName != None:
         with open(fileName, "rb") as f:
             firstLine = f.readline().decode("utf-8-sig").strip()
-    elif content is not None:
+    elif content != None:
         try:
             firstLine = content.decode("utf-8-sig").split("\n")[0].strip()
         except IndexError:

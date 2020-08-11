@@ -9,10 +9,10 @@ from common.files import fileBuffer, fileLocks
 from common.web import schiavo
 
 try:
-	with open("version") as f:
-		VERSION = f.read().strip()
+    with open("version") as f:
+        VERSION = f.read().strip()
 except:
-	VERSION = "Unknown"
+    VERSION = "Unknown"
 ACHIEVEMENTS_VERSION = 1
 
 DATADOG_PREFIX = "lets"
@@ -44,7 +44,7 @@ achievementClasses = {}
 # Additional modifications
 COMMON_VERSION_REQ = "1.2.1"
 try:
-	with open("common/version") as f:
-		COMMON_VERSION = f.read().strip()
+    with open("common/version") as f:
+        COMMON_VERSION = f.read().strip()
 except:
-	COMMON_VERSION = "Unknown"
+    COMMON_VERSION = "Unknown"
