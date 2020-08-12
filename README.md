@@ -1,62 +1,70 @@
-## LETS
-This is what osu!KafuuOsu! uses for the replay + score server
+## LeTs
 
-- Origin: https://zxq.co/ripple/lets
-- Mirror: https://github.com/osuripple/lets
+SpECiAL THaNKs To ReALisTIKosU aND AInU
 
-## Latest Essential Tatoe Server
-This server handles every non real time client feature, so:
-- Ingame scoreboards with clan support
-- Score submission
-- Screenshots
-- Replays
-- Clan System
-- osu!direct, thanks to [cheesegull](https://github.com/osuripple/cheesegull)
-- Tillerino-like API (partially broken)
-- osu!standard, autopilot and taiko pp calculation with [oppai-ng](https://github.com/francesco149/oppai-ng), made by Franc[e]sco
-- osu!standard relax pp calculation with [akatsuki-pp-relax](https://github.com/osuAkatsuki/akatsuki-pp-relax), made by Franc[e]sco and edited by cmyui
-- osu!mania pp calculation with `wifipiano2`, made by Nyo with reference code from [Tom94's osu-performance](https://github.com/ppy/osu-performance)
-- catch the beat pp calculation with [catch-the-pp](https://github.com/osuripple/catch-the-pp), made by Sunpy and cythonized by Nyo
+## 需要
+
+python3.8
 
 
-## Requirements
-- Python 3.6
-- Cython
-- C compiler
-
-## How to set up LETS
-First of all, initialize and update the submodules
+#### 初始化子模块
 ```
-$ git submodule init && git submodule update
-$ cd secret && git submodule init && git submodule update && cd ..
-```
-Afterwards, install the required dependencies with pip
-```
-$ python3.6 -m pip install -r requirements.txt
-```
-Compile all `*.pyx` files to `*.so` or `*.dll` files using `setup.py` (distutils file).
-This compiles `catch-the-pp` as well.
-```
-$ python3.6 setup.py build_ext --inplace
-```
-Then, run LETS once to create the default config file and edit it
-```
-$ python3.6 lets.py
-$ nano config.ini
-```
-Finally, compile `oppai-ng` (inside pp/oppai-ng), `akatsuki-pp-relax` (inside pp/oppai-rx) and `oppai-ap` (autopilot pp) to make calculate PP.
-```
-$ cd ./pp/oppai-ng/ && chmod +x ./build && ./build && cd ./../../
-$ cd ./pp/oppai-rx/ && chmod +x ./build && ./build && cd ./../../
-$ cd ./pp/oppai-ap/ && chmod +x ./build && ./build && cd ./../../
+git submodule init
+git submodule update
+cd secret
+git submodule init
+git submodule update
+cd ..
 ```
 
-Did you know?: You can configure more stuff in common/config.json after you run LETS! Like ppboard or making Relax ranked!
+#### 安装依赖
+```
+pip38 install -r requirements.txt
+```
+
+
+#### 编译
+```
+python38 setup.py build_ext --inplace
+```
+
+#### 运行
+```
+python38 lets.py
+```
+
+#### 编辑配置
+```
+vim config.ini
+```
+
+
+#### 编译pp计算库
+
+linux
+```
+cd ./pp/oppai-ng/ && chmod +x ./build && ./build && cd ./../../
+cd ./pp/oppai-rx/ && chmod +x ./build && ./build && cd ./../../
+cd ./pp/oppai-ap/ && chmod +x ./build && ./build && cd ./../../
+```
+
+windows
+```
+./build_oppai.ps1
+```
+
+#### 配置common/config.json
+
+```
+cd common
+cp default_config.json config.json
+vim config.json
+```
+
 
 ## tomejerry.py
-`tomejerry.py` is a tool that allows you to calculate pp for specific scores. It's extremely useful to do mass PP recalculations if you mess something up. It uses lets' config and packages, so make sure lets is installed and configured correctly before using it.
 
-Also there is `tomejerry-rx.py` that does the same thing but, and you guessed it, relax!
+
 ```
 usage: tomejerry.py [-h]
                     [-r | -z | -i ID | -m MODS | -g GAMEMODE | -u USERID | -b BEATMAPID | -fhd]
