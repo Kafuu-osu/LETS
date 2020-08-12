@@ -105,9 +105,9 @@ class handler(requestsManager.asyncRequestHandler):
                     username, gameMode, bmap, setScores=True, country=country, mods=modsFilter, friends=friends
                 )
             else:
-                    sboard = scoreboard.scoreboard(
+                sboard = scoreboard.scoreboard(
                     username, gameMode, bmap, setScores=True, country=country, mods=modsFilter, friends=friends
-                    )
+                )
 
             # Data to return
             data = ""

@@ -243,7 +243,7 @@ class score:
             self.cMiss,
             self.cKatu,
             self.cGeki,
-            self.fullCombo,
+            1 if self.fullCombo else 0,
             self.mods,
             self.playerUserID,
             self.rank,

@@ -126,7 +126,7 @@ class oppai:
             if self.gameMode != gameModes.STD and self.gameMode != gameModes.TAIKO:
                 raise exceptions.unsupportedGameModeException()
 
-            command = "./pp/oppai-ap/oppai {}".format(mapFile)
+            command = "\"./pp/oppai-ap/oppai{}\" {}".format("" if UNIX else ".exe", mapFile)
             if not self.tillerino:
                 # force acc only for non-tillerino calculation
                 # acc is set for each subprocess if calculating tillerino-like pp sets
@@ -168,8 +168,8 @@ class oppai:
                 self.pp = pp_list
 
             log.debug("oppai-auto ~> Calculated PP: {}, stars: {}".format(self.pp, self.stars))
-        except OppaiError:
-            log.error("oppai-auto ~> oppai-ng error!")
+        except OppaiError as err:
+            log.error("oppai-auto ~> oppai-ng error: {}".format(err))
             self.pp = 0
         except exceptions.osuApiFailException:
             log.error("oppai-auto ~> osu!api error!")

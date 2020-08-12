@@ -165,7 +165,7 @@ class scoreboard:
                 self.scores.append(s)
                 c+=1
 
-        '''# If we have more than 50 scores, run query to get scores count
+        # If we have more than 50 scores, run query to get scores count
         if c >= 50:
             # Count all scores on this map
             select = "SELECT COUNT(*) AS count"
@@ -179,7 +179,7 @@ class scoreboard:
             else:
                 self.totalScores = count["count"]
         else:
-            self.totalScores = c-1'''
+            self.totalScores = c-1
 
         # If personal best score was not in top 50, try to get it from cache
         if personalBestScore is not None and self.personalBestRank < 1:

@@ -11,6 +11,7 @@ from common.ripple import scoreUtils
 from constants import exceptions
 from helpers import mapsHelper
 
+
 # constants
 MODULE_NAME = "rippoppai"
 UNIX = True if os.name == "posix" else False
@@ -125,7 +126,7 @@ class oppai:
             if self.gameMode != gameModes.STD and self.gameMode != gameModes.TAIKO:
                 raise exceptions.unsupportedGameModeException()
 
-            command = "./pp/oppai-ng/oppai {}".format(mapFile)
+            command = "\"./pp/oppai-ng/oppai{}\" {}".format("" if UNIX else ".exe", mapFile)
             if not self.tillerino:
                 # force acc only for non-tillerino calculation
                 # acc is set for each subprocess if calculating tillerino-like pp sets
@@ -169,8 +170,8 @@ class oppai:
                 self.pp = pp_list
 
             log.debug("oppai ~> Calculated PP: {}, stars: {}".format(self.pp, self.stars))
-        except OppaiError:
-            log.error("oppai ~> oppai-ng error!")
+        except OppaiError as err:
+            log.error("oppai-auto ~> oppai-ng error: {}".format(err))
             self.pp = 0
         except exceptions.osuApiFailException:
             log.error("oppai ~> osu!api error!")
