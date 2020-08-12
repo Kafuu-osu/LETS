@@ -1,6 +1,6 @@
 ## LeTs
 
-SpECiAL THaNKs To ![ReALisTIKosU](https://ussr.pl/) aND ![AInU](https://ainu.pw/)
+SpECiAL THaNKs To [ReALisTIKosU](https://ussr.pl/) aND [AInU](https://ainu.pw/)
 
 ## 需要
 
