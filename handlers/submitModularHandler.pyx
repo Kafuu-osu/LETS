@@ -609,7 +609,8 @@ class handler(requestsManager.asyncRequestHandler):
                         }))
 
                 # Send message to #announce if we're rank #1
-                if newScoreboard.personalBestRank == 1 and s.completed == 3 and not restricted:
+                # newScoreboard.personalBestRank == 1 and 
+                if s.completed == 3 and not restricted:
                     annmsg = "[{}] [{}/{}u/{} {}] 达成了 Rank #1 on [https://osu.ppy.sh/b/{} {}] | [https://old.kafuu.pro/b/{} {}] ({}) | {}pp".format(
                         DAGAyMode,
                         glob.conf.config["server"]["serverurl"],
