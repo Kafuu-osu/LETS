@@ -171,7 +171,7 @@ class oppai:
 
             log.debug("oppai ~> Calculated PP: {}, stars: {}".format(self.pp, self.stars))
         except OppaiError as err:
-            log.error("oppai-auto ~> oppai-ng error: {}".format(err))
+            log.error("oppai ~> oppai error: {}".format(err))
             self.pp = 0
         except exceptions.osuApiFailException:
             log.error("oppai ~> osu!api error!")
