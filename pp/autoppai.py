@@ -169,7 +169,7 @@ class oppai:
 
             log.debug("oppai-auto ~> Calculated PP: {}, stars: {}".format(self.pp, self.stars))
         except OppaiError as err:
-            log.error("oppai-auto ~> oppai-ng error: {}".format(err))
+            log.error("oppai-auto ~> oppai error: {}".format(err))
             self.pp = 0
         except exceptions.osuApiFailException:
             log.error("oppai-auto ~> osu!api error!")
@@ -184,4 +184,3 @@ class oppai:
         finally:
             log.debug("oppai-auto ~> Shutting down, pp = {}".format(self.pp))
             
-# Aoba's horse food, loli flavours.

@@ -42,7 +42,7 @@ class handler(requestsManager.asyncRequestHandler):
             
             
             # in China Mainland, use sayobot mirror
-            if ipInfo.getIpAera(self.request.remote_ip) == "CN":
+            if True or ipInfo.getIpAera(self.request.remote_ip) == "CN":
                 # Get data from sayobot API
                 log.info("[sayobot] Requested osu!direct search: {}".format(query if query != "" else "index"))
                 address = "https://api.sayobot.cn/beatmaplist?0=100&1={}&2={}&3=&5={}&6={}&4=63&7=1535&8=4095".format(

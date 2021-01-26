@@ -611,8 +611,9 @@ class handler(requestsManager.asyncRequestHandler):
                         }))
 
                 # Send message to #announce if we're rank #1
-                if newScoreboard.personalBestRank == 1 and s.completed == 3 and not restricted:
-                    annmsg = "[{}] [{}/{}u/{} {}] achieved rank #1 on [https://kafuu.pro/b/{} {}] ({})".format(
+                # newScoreboard.personalBestRank == 1 and 
+                if s.completed == 3 and not restricted:
+                    annmsg = "[{}] [{}/{}u/{} {}] 达成了 Rank #1 on [https://old.kafuu.pro/b/{} {}] | [https://osu.ppy.sh/b/{} 官服链接] ({}) | {}pp".format(
                         DAGAyMode,
                         glob.conf.config["server"]["serverurl"],
                         ProfAppend,
@@ -620,7 +621,9 @@ class handler(requestsManager.asyncRequestHandler):
                         username.encode().decode("ASCII", "ignore"),
                         beatmapInfo.beatmapID,
                         beatmapInfo.songName.encode().decode("ASCII", "ignore"),
-                        gameModes.getGamemodeFull(s.gameMode)
+                        beatmapInfo.beatmapID,
+                        gameModes.getGamemodeFull(s.gameMode),
+                        round(s.pp, 2)
                     )
                                 
                     params = urlencode({"k": glob.conf.config["server"]["apikey"], "to": "#announce", "msg": annmsg})
