@@ -105,7 +105,9 @@ class handler(requestsManager.asyncRequestHandler):
             scoreData = aeshelper.decryptRinjdael(aeskey, iv, scoreDataEnc, True).split(":")
             if len(scoreData) < 16 or len(scoreData[0]) != 32:
                 return
-            username = scoreData[1].strip()
+
+            # fix utf-8 username
+            username = scoreData[1].encode('latin_1').decode('utf-8').strip()
 
             # Login and ban check
             userID = userUtils.getID(username)
